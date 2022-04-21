@@ -1,21 +1,44 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+<style scoped>
+
+</style>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div class="dialog-example">
+    <button
+      type="button"
+      @click="onClickShowDialogButton">
+      Dialog 표시
+    </button>
+    <Dialog
+      v-model:visible="isVisible">
+      <template v-slot:title>
+        제목
+      </template>
+      <template v-slot:content>
+        내용
+      </template>
+    </Dialog>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import Dialog from './components/Dialog/index.vue';
+
+export default defineComponent({
+  components: {
+    Dialog,
+  },
+  setup() {
+    const isVisible = ref(false);
+    const onClickShowDialogButton = () => {
+      isVisible.value = true;
+    };
+
+    return {
+      isVisible,
+      onClickShowDialogButton,
+    };
+  },
+});
+</script>
